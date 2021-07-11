@@ -50,8 +50,9 @@ export class ProductosComponent implements OnInit {
     this.modalService.open(this.myModalInfo);
     const { idneumaticos } = data;
     this.prodcSrv.getById(idneumaticos)
-      .pipe(tap(articulo => this.articulo = articulo)).subscribe();
-
+      .pipe(tap(articulo => {
+        this.articulo = articulo
+      })).subscribe();
   }
 
   onSave() {
