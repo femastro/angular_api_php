@@ -16,7 +16,7 @@ export class ProductosService {
     return this.http.get<Articulo[]>(`${environment.apiRest}`)
   }
 
-  getById(id: number) {
+  getById(id: number): Observable<Articulo> {
     return this.http.get<Articulo[]>(`${environment.apiRest}/${id}`)
       .pipe(map(articulo => articulo[0]))
   }
