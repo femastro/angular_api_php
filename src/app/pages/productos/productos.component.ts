@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
 
 
@@ -16,9 +17,10 @@ export class ProductosComponent implements OnInit {
 
   @ViewChild("myModalInfo", { static: false }) myModalInfo: TemplateRef<any>;
 
-  articulos: Articulo[];
   articulo: Articulo;
   imagen = "";
+
+  articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
 
 
   constructor(
@@ -34,15 +36,15 @@ export class ProductosComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.list();
-    console.log("this.articulos : ", this.articulos)
+    // this.list();
+    // console.log("this.articulos : ", this.articulos)
   }
 
-  list() {
-    this.prodcSrv.getAll()
-      .pipe(tap(articulos => this.articulos = articulos), tap(articulos => console.log('respuesta Serv. ', articulos)))
-      .subscribe();
-  }
+  // list() {
+  //   this.prodcSrv.getAll()
+  //     .pipe(tap(articulos => this.articulos = articulos), tap(articulos => console.log('respuesta Serv. ', articulos)))
+  //     .subscribe();
+  // }
 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
@@ -83,7 +85,7 @@ export class ProductosComponent implements OnInit {
           alert(`Respuesta : => ${articuloEliminado.message}`);
         }
 
-        this.list();
+        // this.list(); // FIXME: retrieve products when something changed
       }
       );
     }
