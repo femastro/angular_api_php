@@ -30,8 +30,10 @@ export class ProductosComponent implements OnInit {
   ) { }
 
   formulario = new FormGroup({
+    id: new FormControl(''),
     modelo: new FormControl(''),
     medida: new FormControl(''),
+    cod_Proveedor: new FormControl(''),
     cantidad: new FormControl('')
   });
 
@@ -51,7 +53,7 @@ export class ProductosComponent implements OnInit {
     const { idneumaticos } = data;
     this.prodcSrv.getById(idneumaticos)
       .pipe(tap(articulo => {
-        this.articulo = articulo
+        this.articulo = articulo;
       })).subscribe();
   }
 
