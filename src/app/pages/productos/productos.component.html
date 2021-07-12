@@ -44,43 +44,48 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
-      <form [formGroup]="formulario" class="form-group">
-        <div class="card mb-3" style="max-width: 100%;">
-          <div class="card-header"><b>{{articulo?.marca}}</b> ( {{ articulo?.cod_Articulo }} )</div>
-          <div class="div-input form-group">
+    <ng-container>
+      <div class="modal-body">
+        <form [formGroup]=" formulario" class="form-group">
+          <div class="card mb-3" style="max-width: 100%;">
+            <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
+            <div class="div-input form-group">
+              <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
+              <input type="text" class="form-control" value="{{ articulo?.marca }}" id="inputMarca"
+                formControlName="marca">
 
-            <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
-            <input type="text" class="form-control" value="{{ articulo?.modelo }}" id="inputModelo"
-              formControlName="modelo">
+              <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
+              <input type="text" class="form-control" value="{{ articulo?.modelo }}" id="inputModelo"
+                formControlName="modelo">
 
-            <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
-            <input type="text" class="form-control" value="{{ articulo?.medida }}" id="inputMedida"
-              formControlName="medida">
+              <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
+              <input type="text" class="form-control" value="{{ articulo?.medida }}" id="inputMedida"
+                formControlName="medida">
 
-            <label class="col-form-label mt-4" for="inputProveedor"><b>Cod. Proveedor</b></label>
-            <input type="text" class="form-control" value="{{ articulo?.cod_Proveddor }}" id="inputProveedor"
-              formControlName="cod_Proveedor">
+              <label class="col-form-label mt-4" for="inputProveedor"><b>Cod. Proveedor</b></label>
+              <input type="text" class="form-control" value="{{ articulo?.cod_Proveedor }}" id="inputProveedor"
+                formControlName="cod_Proveedor">
 
-            <label class="col-form-label mt-4" for="inputCantidad"><b>Cantidad</b></label>
-            <input type="number" class="form-control" value="{{ articulo?.cantidad }}" id="inputCantidad"
-              formControlName="cantidad">
+              <label class="col-form-label mt-4" for="inputCantidad"><b>Cantidad</b></label>
+              <input type="number" class="form-control" value="{{ articulo?.cantidad }}" id="inputCantidad"
+                formControlName="cantidad">
 
-            <div class="imgMuestra">
-              <img [src]="urlImage" (error)="onImageError($event)" alt="img">
+              <div class="imgMuestra">
+                <img [src]="urlImage" (error)="onImageError($event)" alt="img">
+              </div>
+              <input type="file" class="form-control" name="imgMuestra">
+              <br>
             </div>
-            <input type="file" class="form-control" name="imgMuestra">
-            <br>
           </div>
-        </div>
-        <div class="row">
-          <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
-        </div>
-        <div class="row">
-          <button type="button" (click)="modal.close()" class="btn btn-danger btn-block">Cerrar</button>
-        </div>
-      </form>
-    </div>
+          <div class="row">
+            <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
+          </div>
+          <div class="row">
+            <button type="button" (click)="modal.close()" class="btn btn-danger btn-block">Cerrar</button>
+          </div>
+        </form>
+      </div>
+    </ng-container>
   </div>
 
 </ng-template>

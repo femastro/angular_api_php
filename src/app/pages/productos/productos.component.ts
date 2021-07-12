@@ -22,7 +22,6 @@ export class ProductosComponent implements OnInit {
 
   articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
 
-
   constructor(
     private prodcSrv: ProductosService,
     private route: Router,
@@ -30,7 +29,7 @@ export class ProductosComponent implements OnInit {
   ) { }
 
   formulario = new FormGroup({
-    id: new FormControl(''),
+    marca: new FormControl(''),
     modelo: new FormControl(''),
     medida: new FormControl(''),
     cod_Proveedor: new FormControl(''),
@@ -52,9 +51,11 @@ export class ProductosComponent implements OnInit {
     this.modalService.open(this.myModalInfo);
     const { idneumaticos } = data;
     this.prodcSrv.getById(idneumaticos)
-      .pipe(tap(articulo => {
+      .pipe(tap<Articulo>(articulo => {
         this.articulo = articulo;
-      })).subscribe();
+        console.log("Datos => ", articulo)
+      }))
+      .subscribe();
   }
 
   onSave() {
