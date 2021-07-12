@@ -51,10 +51,12 @@ export class ProductosComponent implements OnInit {
     this.modalService.open(this.myModalInfo);
     const { id } = data;
     this.prodcSrv.getById(id)
-      .pipe(tap<Articulo>(articulo => {
-        this.articulo = articulo;
-        console.log("Datos => ", articulo)
-      }))
+      .pipe(
+        tap<Articulo>(articulo => {
+          this.articulo = articulo;
+          console.log("Datos => ", articulo)
+        })
+      )
       .subscribe();
   }
 
