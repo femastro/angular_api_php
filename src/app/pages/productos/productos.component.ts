@@ -49,8 +49,8 @@ export class ProductosComponent implements OnInit {
 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
-    const { idneumaticos } = data;
-    this.prodcSrv.getById(idneumaticos)
+    const { id } = data;
+    this.prodcSrv.getById(id)
       .pipe(tap<Articulo>(articulo => {
         this.articulo = articulo;
         console.log("Datos => ", articulo)
@@ -77,11 +77,11 @@ export class ProductosComponent implements OnInit {
   }
 
   onDeleteArticulo(data: Articulo): void {
-    const { idneumaticos } = data;
+    const { id } = data;
     let mensaje = "Esta seguro ?";
 
     if (confirm(mensaje)) {
-      this.prodcSrv.delete(idneumaticos).subscribe(articuloEliminado => {
+      this.prodcSrv.delete(id).subscribe(articuloEliminado => {
 
         if (articuloEliminado.status == 200) {
           alert(`Respuesta : => ${articuloEliminado.message}`);

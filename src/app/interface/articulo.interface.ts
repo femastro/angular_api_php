@@ -1,5 +1,5 @@
 export interface Articulo {
-  idneumaticos: number;
+  id: number;
   cod_Articulo: string;
   marca: string;
   modelo: string;

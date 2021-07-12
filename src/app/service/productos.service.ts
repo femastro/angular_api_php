@@ -26,6 +26,6 @@ export class ProductosService {
   }
 
   save(data: Articulo) {
-    return this.http.post(`${environment.apiRest}/nuevo`, data);
+    return this.http.post(`${environment.apiRest}/new`, data);
   }
 }
