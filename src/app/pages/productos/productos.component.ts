@@ -52,7 +52,7 @@ export class ProductosComponent implements OnInit {
     const { id } = data;
     this.prodcSrv.getById(id)
       .pipe(
-        tap<Articulo>(articulo => {
+        tap<Articulo>((articulo) => {
           this.articulo = articulo;
           console.log("Datos => ", articulo)
         })
