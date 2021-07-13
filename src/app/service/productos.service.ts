@@ -18,7 +18,9 @@ export class ProductosService {
 
   getById(id: number): Observable<Articulo> {
     return this.http.get<Articulo>(`${environment.apiRest}/${id}`)
-      .pipe(map(articulo => articulo[0]))
+      .pipe(map(articulo => {
+        return articulo[0];
+      }))
   }
 
   delete(id: number) {
