@@ -20,6 +20,7 @@ export class ProductosComponent implements OnInit {
   articulo: Articulo;
   imagen = "";
 
+  /// esto lo creo Ruslan.
   articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
 
   constructor(
