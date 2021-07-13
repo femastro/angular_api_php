@@ -1,17 +1,24 @@
-.centrar{
+.centrar {
     text-align: center;
 }
-.div-input{
+
+.div-input {
     padding: 5px 10px;
 }
-.modal-body{
+
+.modal-body {
     padding: 10px 30px;
 }
-.imgMuestra{
+
+#imgMuestra {
     text-align: center;
     padding: 10px 5px;
-    img{
-        max-width: 250px;
-        max-height: 265px;
+    img {
+        width: 50%;
     }
+}
+
+.table,
+.form-control {
+    font-size: .8rem;
 }

@@ -1,91 +1,86 @@
 <div class="container-fluid">
-  <table class="table table-light mt-3">
-    <thead>
-      <tr>
-        <th colspan="7">ARTICULOS EN STOCK</th>
-      </tr>
-      <tr>
-        <th>#</th>
-        <th>CODIGO</th>
-        <th>MARCA</th>
-        <th>MODELO</th>
-        <th>MEDIDA</th>
-        <th>PROVEEDOR</th>
-        <th class="centrar">STOCK</th>
-        <th><button style="width: 100%" class="btn btn-success btn-block" (click)="onNew()">New</button></th>
-      </tr>
-    </thead>
-    <ng-container *ngIf="(articulos$ | async) as articulos">
-      <tbody *ngFor="let art of articulos">
-        <tr>
-          <td>{{ art.idneumaticos }}</td>
-          <td>{{ art.cod_Articulo }}</td>
-          <td>{{ art.marca }}</td>
-          <td>{{ art.modelo }}</td>
-          <td>{{ art.medida }}</td>
-          <td>{{ art.cod_Proveedor }}</td>
-          <td class="centrar">{{ art.cantidad }}</td>
-          <td class="centrar">
-            <button class="btn btn-warning btn-sm" (click)="onEditArticulo(art)">Edit</button> /
-            <button class="btn btn-danger btn-sm" (click)="onDeleteArticulo(art)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </ng-container>
-  </table>
+    <table class="table table-light mt-3">
+        <thead>
+            <tr>
+                <th colspan="7">ARTICULOS EN STOCK</th>
+            </tr>
+            <tr>
+                <th>#</th>
+                <th>CODIGO</th>
+                <th>MARCA</th>
+                <th>MODELO</th>
+                <th>MEDIDA</th>
+                <th>PROVEEDOR</th>
+                <th class="centrar">STOCK</th>
+                <th><button style="width: 100%" class="btn btn-success btn-block" (click)="onNew()">New</button></th>
+            </tr>
+        </thead>
+        <ng-container *ngIf="(articulos$ | async) as articulos">
+            <tbody *ngFor="let art of articulos">
+                <tr>
+                    <td>{{ art.idneumaticos }}</td>
+                    <td>{{ art.cod_Articulo }}</td>
+                    <td>{{ art.marca }}</td>
+                    <td>{{ art.modelo }}</td>
+                    <td>{{ art.medida }}</td>
+                    <td>{{ art.cod_Proveedor }}</td>
+                    <td class="centrar">{{ art.cantidad }}</td>
+                    <td class="centrar">
+                        <button class="btn btn-warning btn-sm" (click)="onEditArticulo(art)">Edit</button> /
+                        <button class="btn btn-danger btn-sm" (click)="onDeleteArticulo(art)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </ng-container>
+    </table>
 </div>
 
 <ng-template #myModalInfo let-modal>
 
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">NEUMATICO</h5>
-      <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <ng-container>
-      <div class="modal-body">
-        <form [formGroup]=" formulario" class="form-group">
-          <div class="card mb-3" style="max-width: 100%;">
-            <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
-            <div class="div-input form-group">
-              <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
-              <input type="text" class="form-control" value="{{ articulo?.marca }}" id="inputMarca"
-                formControlName="marca">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">NEUMATICO</h5>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <ng-container>
+            <div class="modal-body">
+                <form [formGroup]=" formulario" class="form-group">
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
+                        <div class="div-input form-group">
+                            <b>Marca</b>
+                            <input type="text" class="form-control" value="{{ articulo?.marca }}" id="inputMarca" formControlName="marca">
 
-              <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
-              <input type="text" class="form-control" value="{{ articulo?.modelo }}" id="inputModelo"
-                formControlName="modelo">
+                            <b>Modelo</b>
+                            <input type="text" class="form-control" value="{{ articulo?.modelo }}" id="inputModelo" formControlName="modelo">
 
-              <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
-              <input type="text" class="form-control" value="{{ articulo?.medida }}" id="inputMedida"
-                formControlName="medida">
+                            <b>Medida</b>
+                            <input type="text" class="form-control" value="{{ articulo?.medida }}" id="inputMedida" formControlName="medida">
 
-              <label class="col-form-label mt-4" for="inputProveedor"><b>Cod. Proveedor</b></label>
-              <input type="text" class="form-control" value="{{ articulo?.cod_Proveedor }}" id="inputProveedor"
-                formControlName="cod_Proveedor">
+                            <b>Cod. Proveedor</b>
+                            <input type="text" class="form-control" value="{{ articulo?.cod_Proveedor }}" id="inputProveedor" formControlName="cod_Proveedor">
 
-              <label class="col-form-label mt-4" for="inputCantidad"><b>Cantidad</b></label>
-              <input type="number" class="form-control" value="{{ articulo?.cantidad }}" id="inputCantidad"
-                formControlName="cantidad">
+                            <b>Cantidad</b>
+                            <input type="number" class="form-control" value="{{ articulo?.cantidad }}" id="inputCantidad" formControlName="cantidad">
 
-              <div class="imgMuestra">
-                <img [src]="urlImage" (error)="onImageError($event)" alt="img">
-              </div>
-              <input type="file" class="form-control" name="imgMuestra">
-              <br>
+                            <div id="imgMuestra">
+                                <img [src]="urlImage" (error)="onImageError($event)" alt="img">
+                            </div>
+                            <input type="file" class="form-control" name="imgMuestra">
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
+                    </div>
+                    <div class="row">
+                        <button type="button" autofocus (click)="modal.close()" class="btn btn-danger btn-block">Cerrar</button>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div class="row">
-            <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
-          </div>
-          <div class="row">
-            <button type="button" (click)="modal.close()" class="btn btn-danger btn-block">Cerrar</button>
-          </div>
-        </form>
-      </div>
-    </ng-container>
-  </div>
+        </ng-container>
+    </div>
 
 </ng-template>

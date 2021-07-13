@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
@@ -51,6 +51,7 @@ export class ProductosComponent implements OnInit {
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
     const { id } = data;
+
     this.prodcSrv.getById(id)
       .pipe(
         tap(
