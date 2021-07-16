@@ -30,11 +30,11 @@ export class ProductosComponent implements OnInit {
   ) { }
 
   formulario = new FormGroup({
-    marca: new FormControl(''),
-    modelo: new FormControl(''),
-    medida: new FormControl(''),
-    cod_Proveedor: new FormControl(''),
-    cantidad: new FormControl('')
+    marca: new FormControl('', Validators.required),
+    modelo: new FormControl('', Validators.required),
+    medida: new FormControl('', Validators.required),
+    cod_Proveedor: new FormControl('', Validators.required),
+    cantidad: new FormControl('', Validators.required)
   });
 
   ngOnInit(): void {
