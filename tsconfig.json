@@ -4,10 +4,21 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@pages/*": ["src/app/pages/*"],
-      "@service/*":["src/app/service/*"],
-      "@shared/*":["src/app/shared/*"],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@pages/*": [
+        "src/app/pages/*"
+      ],
+      "@service/*": [
+        "src/app/service/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
