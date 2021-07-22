@@ -57,7 +57,6 @@ export class ProductosComponent implements OnInit {
     this.modalService.open(this.myModalInfo);
     const { id } = data;
     const articulos = JSON.parse(localStorage.getItem("articulos"));
-
     articulos.forEach(element => {
       if (element["id"] == id) {
         this.articulo = element;
