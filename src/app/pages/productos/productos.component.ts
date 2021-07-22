@@ -61,21 +61,20 @@ export class ProductosComponent implements OnInit {
       if (element["id"] == id) {
         this.articulo = element;
       }
-
     });
   }
 
-  onSave() {
+  onUpdate() {
     const datos = this.formulario.value;
-    console.log('Desde modelo', this.articulo);
-    console.log('Desde formulario', datos);
 
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
-      const nuevosDatos = { ...this.articulo, ...datos }
-
-      console.log('Estos es el nuevo objeto', nuevosDatos);
+      this.prodcSrv.update(datos).subscribe(res => {
+        alert(res);
+      })
     }
+
+    this.list();
 
   }
 

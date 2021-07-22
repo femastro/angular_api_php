@@ -30,4 +30,10 @@ export class ProductosService {
   save(data: Articulo) {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
+
+  update(data: Articulo) {
+    const { id } = data;
+    return this.http.put(`${environment.apiRest}/update/${id}`, data);
+  }
+
 }
