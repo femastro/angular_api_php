@@ -38,25 +38,32 @@ export class ProductosComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    // this.list();
+    this.list();
     // console.log("this.articulos : ", this.articulos)
   }
 
-  // list() {
-  //   this.prodcSrv.getAll()
-  //     .pipe(tap(articulos => this.articulos = articulos), tap(articulos => console.log('respuesta Serv. ', articulos)))
-  //     .subscribe();
-  // }
+  list() {
+    this.prodcSrv.getAll()
+      .pipe(
+        tap(resp => {
+          localStorage.setItem("articulos", JSON.stringify(resp));
+        })
+      )
+      .subscribe();
+  }
 
+  /// con esto solucione el problema de que no mostraba en el Modal los datos 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
     const { id } = data;
+    const articulos = JSON.parse(localStorage.getItem("articulos"));
 
-    this.prodcSrv.getById(id)
-      .pipe(
-        tap((resp: Articulo) => this.articulo = { ...this.articulo, ...resp })
-      )
-      .subscribe();
+    articulos.forEach(element => {
+      if (element["id"] == id) {
+        this.articulo = element;
+      }
+
+    });
   }
 
   onSave() {

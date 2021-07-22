@@ -51,19 +51,19 @@
                         <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
                         <div class="div-input form-group">
                             <b>Marca</b>
-                            <input type="text" class="form-control" value="{{ articulo?.marca }}" id="inputMarca" formControlName="marca">
+                            <input type="text" class="form-control" [ngModel]="articulo?.marca" id="inputMarca" formControlName="marca">
 
                             <b>Modelo</b>
-                            <input type="text" class="form-control" value="{{ articulo?.modelo }}" id="inputModelo" formControlName="modelo">
+                            <input type="text" class="form-control" [ngModel]="articulo?.modelo" id="inputModelo" formControlName="modelo">
 
                             <b>Medida</b>
-                            <input type="text" class="form-control" value="{{ articulo?.medida }}" id="inputMedida" formControlName="medida">
+                            <input type="text" class="form-control" [ngModel]="articulo?.medida" id="inputMedida" formControlName="medida">
 
                             <b>Cod. Proveedor</b>
-                            <input type="text" class="form-control" value="{{ articulo?.cod_Proveedor }}" id="inputProveedor" formControlName="cod_Proveedor">
+                            <input type="text" class="form-control" [ngModel]="articulo?.cod_Proveedor" id="inputProveedor" formControlName="cod_Proveedor">
 
                             <b>Cantidad</b>
-                            <input type="number" class="form-control" value="{{ articulo?.cantidad }}" id="inputCantidad" formControlName="cantidad">
+                            <input type="number" class="form-control" [ngModel]="articulo?.cantidad" id="inputCantidad" formControlName="cantidad">
 
                             <div id="imgMuestra">
                                 <img [src]="urlImage" (error)="onImageError($event)" alt="img">
