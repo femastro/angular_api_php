@@ -54,10 +54,7 @@ export class ProductosComponent implements OnInit {
 
     this.prodcSrv.getById(id)
       .pipe(
-        tap(
-          articulo => {
-            this.articulo = { ...this.articulo, ...articulo };
-          })
+        tap((data: Articulo) => this.articulo = { ...this.articulo, ...data })
       )
       .subscribe();
   }
