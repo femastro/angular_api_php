@@ -1,38 +1,53 @@
 <div class="card-content formulario-div">
-  <div class="card-header mt-5">
-    <h5 class="card-title">NEUMATICO (Nuevo)</h5>
-  </div>
-  <form [formGroup]="formulario" class="form-group">
-    <div class="mb-3">
-      <div class="div-input form-group">
+    <div class="card-header mt-5">
+        <h5 class="card-title">NEUMATICO (Nuevo)</h5>
+    </div>
+    <form [formGroup]="formulario" class="form-group">
+        <div class="mb-3">
+            <div class="div-input form-group">
 
-        <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
-        <input type="text" class="form-control" id="inputMarca" formControlName="marca">
+                <ng-container *ngIf="(marcas$ | async) as marcas">
+                    <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
+                    <select type="text" class="form-control" id="inputMarca" formControlName="marca">
+                        <option value="0">Seleccionar ...</option>
+                        <option *ngFor="let marca of marcas" value="{{marca.marca}}">{{marca.marca}}</option>
+                    </select>
+                </ng-container>
 
-        <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
-        <input type="text" class="form-control" id="inputModelo" formControlName="modelo">
+                <ng-container *ngIf="(modelos$ | async) as modelos">
+                    <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
+                    <select type="text" class="form-control" id="inputModelo" formControlName="modelo">
+                        <option value="0">Seleccionar ...</option>
+                        <option *ngFor="let modelo of modelos" value="{{modelo.modelo}}">{{modelo.modelo}}</option>
+                    </select>
+                </ng-container>
 
-        <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
-        <input type="text" class="form-control" id="inputMedida" formControlName="medida">
+                <ng-container *ngIf="(medidas$ | async) as medidas">
+                    <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
+                    <select type="text" class="form-control" id="inputMedida" formControlName="medida">
+                        <option value="0">Seleccionar ...</option>
+                        <option *ngFor="let medida of medidas" value="{{medida.medida}}">{{medida.medida}}</option>
+                    </select>
+                </ng-container>
 
-        <label class="col-form-label mt-4" for="inputProveedor"><b>Cod. Proveedor</b>&nbsp;<span class="comentario">(
+                <label class="col-form-label mt-4" for="inputProveedor"><b>Cod. Proveedor</b>&nbsp;<span class="comentario">(
             Opcional
             )</span></label>
-        <input type="text" class="form-control" id="inputProveedor" formControlName="codProveedor">
+                <input type="text" class="form-control" id="inputProveedor" formControlName="cod_Proveedor">
 
-        <label class="col-form-label mt-4" for="inputCantidad"><b>Cantidad</b></label>
-        <input type="number" class="form-control" id="inputCantidad" formControlName="cantidad">
+                <label class="col-form-label mt-4" for="inputCantidad"><b>Cantidad</b></label>
+                <input type="number" class="form-control" id="inputCantidad" formControlName="cantidad">
 
-        <label class="col-form-label mt-4" for="inputImagen"><b>Imágen</b></label>
-        <input type="file" class="form-control" name="imgMuestra" id="inputImagen">
-        <br>
-      </div>
-      <div class="row">
-        <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
-      </div>
-      <div class="row">
-        <button type="button" routerLink="/productos" class="btn btn-danger btn-block">Cerrar</button>
-      </div>
-    </div>
-  </form>
+                <label class="col-form-label mt-4" for="inputImagen"><b>Imágen</b></label>
+                <input type="file" class="form-control" name="imgMuestra" id="inputImagen">
+                <br>
+            </div>
+            <div class="row">
+                <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;
+            </div>
+            <div class="row">
+                <button type="button" routerLink="/productos" class="btn btn-danger btn-block">Cerrar</button>
+            </div>
+        </div>
+    </form>
 </div>

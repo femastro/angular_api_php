@@ -27,7 +27,9 @@ export class ProductosComponent implements OnInit {
     private prodcSrv: ProductosService,
     private route: Router,
     private modalService: NgbModal,
-  ) { }
+  ) {
+    this.list();
+  }
 
   formulario = new FormGroup({
     marca: new FormControl('', Validators.required),
@@ -37,10 +39,7 @@ export class ProductosComponent implements OnInit {
     cantidad: new FormControl('', Validators.required)
   });
 
-  ngOnInit(): void {
-    this.list();
-    // console.log("this.articulos : ", this.articulos)
-  }
+  ngOnInit(): void { }
 
   list() {
     this.prodcSrv.getAll()
@@ -55,6 +54,7 @@ export class ProductosComponent implements OnInit {
   /// con esto solucione el problema de que no mostraba en el Modal los datos 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
+    this.formulario.reset;
     const { id } = data;
     const articulos = JSON.parse(localStorage.getItem("articulos"));
     articulos.forEach(element => {
@@ -66,15 +66,15 @@ export class ProductosComponent implements OnInit {
 
   onUpdate() {
     const datos = this.formulario.value;
-
+    const nuevosDatos = { ...this.articulo, ...datos }
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
-      this.prodcSrv.update(datos).subscribe(res => {
+      this.prodcSrv.update(nuevosDatos, this.articulo.id).subscribe(res => {
         alert(res);
       })
     }
-
-    this.list();
+    /// no refresh la pagina
+    this.route.navigate(["/productos"]);
 
   }
 
@@ -94,10 +94,9 @@ export class ProductosComponent implements OnInit {
         } else {
           alert(`Respuesta : => ${articuloEliminado.message}`);
         }
-
-        // this.list(); // FIXME: retrieve products when something changed
-      }
-      );
+        /// no refresh la pagina
+        this.route.navigate(["/productos"]);
+      });
     }
   }
 
@@ -105,6 +104,7 @@ export class ProductosComponent implements OnInit {
     if (this.articulo) {
       //return `${environment.apiUrl}/${this.articulo.cod_Articulo}.jpg`;
       return `/assets/images/${this.articulo.cod_Articulo}.jpg`;
+
     }
   }
 

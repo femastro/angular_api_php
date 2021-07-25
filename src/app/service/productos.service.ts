@@ -12,6 +12,22 @@ export class ProductosService {
 
   constructor(private http: HttpClient) { }
 
+  getNeumaticos(): Observable<Articulo[]> {
+    return this.http.get<Articulo[]>(`${environment.apiAll}`)
+  }
+
+  getMarcas() {
+    return this.http.get(`${environment.apiAll}/marcas`)
+  }
+
+  getModelos() {
+    return this.http.get(`${environment.apiAll}/modelo`)
+  }
+
+  getMedidas() {
+    return this.http.get(`${environment.apiAll}/medida`)
+  }
+
   getAll(): Observable<Articulo[]> {
     return this.http.get<Articulo[]>(`${environment.apiRest}`)
   }
@@ -31,8 +47,7 @@ export class ProductosService {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
 
-  update(data: Articulo) {
-    const { id } = data;
+  update(data: Articulo, id: number) {
     return this.http.put(`${environment.apiRest}/update/${id}`, data);
   }
 
