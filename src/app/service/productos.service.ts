@@ -21,11 +21,11 @@ export class ProductosService {
   }
 
   getModelos() {
-    return this.http.get(`${environment.apiAll}/modelo`)
+    return this.http.get(`${environment.apiAll}/modelos`)
   }
 
   getMedidas() {
-    return this.http.get(`${environment.apiAll}/medida`)
+    return this.http.get(`${environment.apiAll}/medidas`)
   }
 
   getAll(): Observable<Articulo[]> {

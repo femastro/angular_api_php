@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 @Component({
@@ -16,14 +17,14 @@ export class ArticuloComponent implements OnInit {
 
   articulos$: Observable<Articulo[]> = this.prodcSrv.getNeumaticos();
 
-  marcas$ = this.prodcSrv.getMarcas();
-  modelos$ = this.prodcSrv.getModelos();
-  medidas$ = this.prodcSrv.getMedidas();
+  marcas$: Observable<any> = this.prodcSrv.getMarcas();
+  modelos$: Observable<any> = this.prodcSrv.getModelos();
+  medidas$: Observable<any> = this.prodcSrv.getMedidas();
 
   formulario = new FormGroup({
-    marca: new FormControl(''),
-    modelo: new FormControl(''),
-    medida: new FormControl(''),
+    marca: new FormControl('0'),
+    modelo: new FormControl('0'),
+    medida: new FormControl('0'),
     cod_Proveedor: new FormControl(''),
     cantidad: new FormControl('')
   });
@@ -34,7 +35,7 @@ export class ArticuloComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
+    this.medidas$.subscribe(res => console.log(res));
   }
 
   onSave() {

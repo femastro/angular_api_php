@@ -1,5 +1,5 @@
 import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
@@ -64,11 +64,10 @@ export class ProductosComponent implements OnInit {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
       this.prodcSrv.update(datos).subscribe(res => {
         alert(`Respuesta -> ${res}`);
+        this.refresh();
       })
     }
     /// no refresh la pagina
-    this.refresh();
-
   }
 
   onNew(): void {
@@ -94,8 +93,7 @@ export class ProductosComponent implements OnInit {
   }
 
   refresh() {
-    this.ngOnInit();
-    this.route.navigate(["/productos"]);
+    location.reload();
   }
 
   get urlImage() {

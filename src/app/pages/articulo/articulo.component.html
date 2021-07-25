@@ -10,7 +10,7 @@
                     <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
                     <select type="text" class="form-control" id="inputMarca" formControlName="marca">
                         <option value="0">Seleccionar ...</option>
-                        <option *ngFor="let marca of marcas" value="{{marca.marca}}">{{marca.marca}}</option>
+                        <option *ngFor="let op of marcas" [value]="op.marca">{{op.marca}}</option>
                     </select>
                 </ng-container>
 
@@ -18,7 +18,7 @@
                     <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
                     <select type="text" class="form-control" id="inputModelo" formControlName="modelo">
                         <option value="0">Seleccionar ...</option>
-                        <option *ngFor="let modelo of modelos" value="{{modelo.modelo}}">{{modelo.modelo}}</option>
+                        <option *ngFor="let op of modelos" [value]="op.modelo">{{op.modelo}}</option>
                     </select>
                 </ng-container>
 
@@ -26,7 +26,7 @@
                     <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
                     <select type="text" class="form-control" id="inputMedida" formControlName="medida">
                         <option value="0">Seleccionar ...</option>
-                        <option *ngFor="let medida of medidas" value="{{medida.medida}}">{{medida.medida}}</option>
+                        <option *ngFor="let op of medidas" [value]="op.medida">{{op.medida}}</option>
                     </select>
                 </ng-container>
 
