@@ -55,7 +55,6 @@ export class ProductosService {
   getImg(cod: string) {
     //return `${environment.apiUrl}/${cod}.jpg`;
     return `/assets/images/${cod}.jpg`;
-
   }
 
 }

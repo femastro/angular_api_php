@@ -1,3 +1,4 @@
+import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -42,7 +43,9 @@ export class ProductosComponent implements OnInit {
     cantidad: new FormControl('', Validators.required)
   });
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   // list() {
   //   this.prodcSrv.getAll()
@@ -62,6 +65,7 @@ export class ProductosComponent implements OnInit {
       .pipe(
         tap(resp => {
           this.formulario.setValue(resp);
+          this.articulo = resp;
         })
       )
       .subscribe();
@@ -77,7 +81,7 @@ export class ProductosComponent implements OnInit {
       })
     }
     /// no refresh la pagina
-    this.route.navigate(["/productos"]);
+    this.refresh();
 
   }
 
@@ -98,9 +102,14 @@ export class ProductosComponent implements OnInit {
           alert(`Respuesta : => ${articuloEliminado.message}`);
         }
         /// no refresh la pagina
-        this.route.navigate(["/productos"]);
+        this.refresh();
       });
     }
+  }
+
+  refresh() {
+    this.ngOnInit();
+    this.route.navigate(["/productos"]);
   }
 
   get urlImage() {
