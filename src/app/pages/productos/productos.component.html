@@ -46,24 +46,24 @@
         </div>
         <ng-container>
             <div class="modal-body">
-                <form [formGroup]=" formulario" class="form-group">
+                <form [formGroup]="formulario" class="form-group" (ngSubmit)="onUpdate()">
                     <div class="card mb-3" style="max-width: 100%;">
                         <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
                         <div class="div-input form-group">
                             <b>Marca</b>
-                            <input type="text" class="form-control" [ngModel]="articulo?.marca" id="inputMarca" formControlName="marca">
+                            <input type="text" class="form-control" id="inputMarca" formControlName="marca">
 
                             <b>Modelo</b>
-                            <input type="text" class="form-control" [ngModel]="articulo?.modelo" id="inputModelo" formControlName="modelo">
+                            <input type="text" class="form-control" id="inputModelo" formControlName="modelo">
 
                             <b>Medida</b>
-                            <input type="text" class="form-control" [ngModel]="articulo?.medida" id="inputMedida" formControlName="medida">
+                            <input type="text" class="form-control" id="inputMedida" formControlName="medida">
 
                             <b>Cod. Proveedor</b>
-                            <input type="text" class="form-control" [ngModel]="articulo?.cod_Proveedor" id="inputProveedor" formControlName="cod_Proveedor">
+                            <input type="text" class="form-control" id="inputProveedor" formControlName="cod_Proveedor">
 
                             <b>Cantidad</b>
-                            <input type="number" class="form-control" [ngModel]="articulo?.cantidad" id="inputCantidad" formControlName="cantidad">
+                            <input type="number" class="form-control" id="inputCantidad" formControlName="cantidad">
 
                             <div id="imgMuestra">
                                 <img [src]="urlImage" (error)="onImageError($event)" alt="img">
@@ -73,10 +73,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <button type="button" (click)="onUpdate()" class="btn btn-info btn-block">Guardar</button>&nbsp;
+                        <button type="submit" (click)="modal.close()" class="btn btn-info btn-block">Save</button>&nbsp;
                     </div>
                     <div class="row">
-                        <button type="button" autofocus (click)="modal.close()" class="btn btn-danger btn-block">Cerrar</button>
+                        <button type="button" autofocus (click)="modal.close()" class="btn btn-danger btn-block">Close</button>
                     </div>
                 </form>
             </div>

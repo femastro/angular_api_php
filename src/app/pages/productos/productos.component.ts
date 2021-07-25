@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
+import { environment } from '@environments/environment.prod';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
@@ -28,10 +29,12 @@ export class ProductosComponent implements OnInit {
     private route: Router,
     private modalService: NgbModal,
   ) {
-    this.list();
+    //this.list();
   }
 
   formulario = new FormGroup({
+    id: new FormControl('', Validators.required),
+    cod_Articulo: new FormControl('', Validators.required),
     marca: new FormControl('', Validators.required),
     modelo: new FormControl('', Validators.required),
     medida: new FormControl('', Validators.required),
@@ -41,36 +44,36 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  list() {
-    this.prodcSrv.getAll()
-      .pipe(
-        tap(resp => {
-          localStorage.setItem("articulos", JSON.stringify(resp));
-        })
-      )
-      .subscribe();
-  }
+  // list() {
+  //   this.prodcSrv.getAll()
+  //     .pipe(
+  //       tap(resp => {
+  //         localStorage.setItem("articulos", JSON.stringify(resp));
+  //       })
+  //     )
+  //     .subscribe();
+  // }
 
   /// con esto solucione el problema de que no mostraba en el Modal los datos 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
-    this.formulario.reset;
     const { id } = data;
-    const articulos = JSON.parse(localStorage.getItem("articulos"));
-    articulos.forEach(element => {
-      if (element["id"] == id) {
-        this.articulo = element;
-      }
-    });
-  }
+    this.prodcSrv.getById(id)
+      .pipe(
+        tap(resp => {
+          this.formulario.setValue(resp);
+        })
+      )
+      .subscribe();
+  };
+
 
   onUpdate() {
     const datos = this.formulario.value;
-    const nuevosDatos = { ...this.articulo, ...datos }
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
-      this.prodcSrv.update(nuevosDatos, this.articulo.id).subscribe(res => {
-        alert(res);
+      this.prodcSrv.update(datos).subscribe(res => {
+        alert('Respuesta -> ' + res);
       })
     }
     /// no refresh la pagina
@@ -102,9 +105,7 @@ export class ProductosComponent implements OnInit {
 
   get urlImage() {
     if (this.articulo) {
-      //return `${environment.apiUrl}/${this.articulo.cod_Articulo}.jpg`;
-      return `/assets/images/${this.articulo.cod_Articulo}.jpg`;
-
+      return this.prodcSrv.getImg(this.articulo.cod_Articulo);
     }
   }
 

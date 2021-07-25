@@ -47,8 +47,15 @@ export class ProductosService {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
 
-  update(data: Articulo, id: number) {
+  update(data: Articulo) {
+    const { id } = data;
     return this.http.put(`${environment.apiRest}/update/${id}`, data);
+  }
+
+  getImg(cod: string) {
+    //return `${environment.apiUrl}/${cod}.jpg`;
+    return `/assets/images/${cod}.jpg`;
+
   }
 
 }
