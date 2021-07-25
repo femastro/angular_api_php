@@ -73,7 +73,7 @@ export class ProductosComponent implements OnInit {
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
       this.prodcSrv.update(datos).subscribe(res => {
-        alert('Respuesta -> ' + res);
+        alert(`Respuesta -> ${res}`);
       })
     }
     /// no refresh la pagina
