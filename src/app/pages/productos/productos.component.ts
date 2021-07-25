@@ -29,9 +29,7 @@ export class ProductosComponent implements OnInit {
     private prodcSrv: ProductosService,
     private route: Router,
     private modalService: NgbModal,
-  ) {
-    //this.list();
-  }
+  ) { }
 
   formulario = new FormGroup({
     id: new FormControl('', Validators.required),
@@ -43,21 +41,9 @@ export class ProductosComponent implements OnInit {
     cantidad: new FormControl('', Validators.required)
   });
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-  }
-
-  // list() {
-  //   this.prodcSrv.getAll()
-  //     .pipe(
-  //       tap(resp => {
-  //         localStorage.setItem("articulos", JSON.stringify(resp));
-  //       })
-  //     )
-  //     .subscribe();
-  // }
-
-  /// con esto solucione el problema de que no mostraba en el Modal los datos 
+  /// con esto solucione el problema de que no mostraba en el Modal con los datos 
   onEditArticulo(data: Articulo) {
     this.modalService.open(this.myModalInfo);
     const { id } = data;
