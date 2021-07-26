@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-articulo',
