@@ -20,8 +20,8 @@ export class ProductosService {
     return this.http.get(`${environment.apiAll}/marcas`)
   }
 
-  getModelos() {
-    return this.http.get(`${environment.apiAll}/modelos`)
+  getModelos(marca: any): Observable<any> {
+    return this.http.get<any[]>(`${environment.apiAll}/modelos/${marca}`)
   }
 
   getMedidas() {

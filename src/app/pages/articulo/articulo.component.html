@@ -8,13 +8,13 @@
 
                 <ng-container *ngIf="(marcas$ | async) as marcas">
                     <label class="col-form-label mt-4" for="inputMarca"><b>Marca</b></label>
-                    <select type="text" class="form-control" id="inputMarca" formControlName="marca">
+                    <select type="text" class="form-control" id="inputMarca" formControlName="marca" (change)="seleccionaMarca()">
                         <option value="0">Seleccionar ...</option>
                         <option *ngFor="let op of marcas" [value]="op.marca">{{op.marca}}</option>
                     </select>
                 </ng-container>
 
-                <ng-container *ngIf="(modelos$ | async) as modelos">
+                <ng-container *ngIf="this.modelos as modelos">
                     <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
                     <select type="text" class="form-control" id="inputModelo" formControlName="modelo">
                         <option value="0">Seleccionar ...</option>
@@ -22,7 +22,7 @@
                     </select>
                 </ng-container>
 
-                <ng-container *ngIf="(medidas$ | async) as medidas">
+                <ng-container *ngIf="this.medidas as medidas">
                     <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
                     <select type="text" class="form-control" id="inputMedida" formControlName="medida">
                         <option value="0">Seleccionar ...</option>

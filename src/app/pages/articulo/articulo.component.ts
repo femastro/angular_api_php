@@ -18,8 +18,8 @@ export class ArticuloComponent implements OnInit {
   articulos$: Observable<Articulo[]> = this.prodcSrv.getNeumaticos();
 
   marcas$: Observable<any> = this.prodcSrv.getMarcas();
-  modelos$: Observable<any> = this.prodcSrv.getModelos();
-  medidas$: Observable<any> = this.prodcSrv.getMedidas();
+  modelos = [];
+  medidas = [];
 
   formulario = new FormGroup({
     marca: new FormControl('0'),
@@ -35,7 +35,12 @@ export class ArticuloComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.medidas$.subscribe(res => console.log(res));
+    //this.modelos.pipe(res => console.log(res));
+  }
+
+  seleccionaMarca() {
+    const { marca } = this.formulario.value;
+    this.prodcSrv.getModelos(marca).subscribe(res => this.modelos = res);
   }
 
   onSave() {
