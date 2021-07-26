@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
@@ -22,11 +22,11 @@ export class ArticuloComponent implements OnInit {
   medidas: Formulario[];
 
   formulario = new FormGroup({
-    marca: new FormControl('0'),
-    modelo: new FormControl('0'),
-    medida: new FormControl('0'),
+    marca: new FormControl('0', Validators.required),
+    modelo: new FormControl('0', Validators.required),
+    medida: new FormControl('0', Validators.required),
     cod_Proveedor: new FormControl(''),
-    cantidad: new FormControl('0')
+    cantidad: new FormControl('0', Validators.min(0))
   });
 
   constructor(
