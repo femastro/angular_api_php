@@ -7,3 +7,11 @@ export interface Articulo {
   cod_Proveedor: string;
   cantidad: number
 }
+
+export interface Formulario {
+  marca: string;
+  modelo: string;
+  medida: string;
+  cod_Proveedor: string;
+  cantidad: number
+}

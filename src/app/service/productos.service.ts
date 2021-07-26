@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Articulo } from '@app/interface/articulo.interface';
+import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
@@ -20,12 +20,12 @@ export class ProductosService {
     return this.http.get(`${environment.apiAll}/marcas`)
   }
 
-  getModelos(marca: any): Observable<any> {
-    return this.http.get<any[]>(`${environment.apiAll}/modelos/${marca}`)
+  getModelos(data: Formulario): Observable<Formulario[]> {
+    return this.http.post<Formulario[]>(`${environment.apiAll}/modelos`, data)
   }
 
-  getMedidas() {
-    return this.http.get(`${environment.apiAll}/medidas`)
+  getMedidas(data: Formulario): Observable<Formulario[]> {
+    return this.http.post<Formulario[]>(`${environment.apiAll}/medidas`, data)
   }
 
   getAll(): Observable<Articulo[]> {

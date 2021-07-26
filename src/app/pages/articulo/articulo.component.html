@@ -14,19 +14,19 @@
                     </select>
                 </ng-container>
 
-                <ng-container *ngIf="this.modelos as modelos">
+                <ng-container>
                     <label class="col-form-label mt-4" for="inputModelo"><b>Modelo</b></label>
-                    <select type="text" class="form-control" id="inputModelo" formControlName="modelo">
+                    <select type="text" class="form-control" id="inputModelo" formControlName="modelo" (change)="seleccionaModelo()">
                         <option value="0">Seleccionar ...</option>
-                        <option *ngFor="let op of modelos" [value]="op.modelo">{{op.modelo}}</option>
+                        <option *ngFor="let op of this.modelos" [value]="op.modelo">{{op.modelo}}</option>
                     </select>
                 </ng-container>
 
-                <ng-container *ngIf="this.medidas as medidas">
+                <ng-container>
                     <label class="col-form-label mt-4" for="inputMedida"><b>Medida</b></label>
                     <select type="text" class="form-control" id="inputMedida" formControlName="medida">
                         <option value="0">Seleccionar ...</option>
-                        <option *ngFor="let op of medidas" [value]="op.medida">{{op.medida}}</option>
+                        <option *ngFor="let op of this.medidas" [value]="op.medida">{{op.medida}}</option>
                     </select>
                 </ng-container>
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Articulo } from '@app/interface/articulo.interface';
+import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,17 +16,17 @@ import { map } from 'rxjs/operators';
 export class ArticuloComponent implements OnInit {
 
   articulos$: Observable<Articulo[]> = this.prodcSrv.getNeumaticos();
-
   marcas$: Observable<any> = this.prodcSrv.getMarcas();
-  modelos = [];
-  medidas = [];
+
+  modelos: Formulario[];
+  medidas: Formulario[];
 
   formulario = new FormGroup({
     marca: new FormControl('0'),
     modelo: new FormControl('0'),
     medida: new FormControl('0'),
     cod_Proveedor: new FormControl(''),
-    cantidad: new FormControl('')
+    cantidad: new FormControl('0')
   });
 
   constructor(
@@ -39,16 +39,21 @@ export class ArticuloComponent implements OnInit {
   }
 
   seleccionaMarca() {
-    const { marca } = this.formulario.value;
-    this.prodcSrv.getModelos(marca).subscribe(res => this.modelos = res);
+    const data = this.formulario.value;
+    this.prodcSrv.getModelos(data).subscribe(res => this.modelos = res);
+  }
+
+  seleccionaModelo() {
+    const data = this.formulario.value;
+    this.prodcSrv.getMedidas(data).subscribe(res => this.medidas = res);
   }
 
   onSave() {
     const data = this.formulario.value;
     this.prodcSrv.save(data).subscribe((res) => {
       alert(res);
+      this.route.navigate(['/productos']);
     });
-    this.route.navigate(['/productos']);
   }
 
 }
