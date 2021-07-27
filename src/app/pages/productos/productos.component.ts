@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
 
 
+
+
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -94,10 +96,14 @@ export class ProductosComponent implements OnInit {
     location.reload();
   }
 
+
   get urlImage() {
-    if (this.articulo) {
-      return this.prodcSrv.getImg(this.articulo.cod_Articulo);
+    const { cod_Articulo } = this.formulario.value;
+    if (cod_Articulo) {
+      return `/assets/images/${cod_Articulo}.jpg`;
+      //return this.prodcSrv.getImg(cod_Articulo);
     }
+
   }
 
   onImageError(event: any) {
@@ -105,3 +111,5 @@ export class ProductosComponent implements OnInit {
   }
 
 }
+
+
