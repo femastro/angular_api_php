@@ -19,6 +19,8 @@ export class ArticuloComponent implements OnInit {
   modelos: Formulario[];
   medidas: Formulario[];
 
+  fileUpload: { files: any[]; };
+
   formulario = new FormGroup({
     marca: new FormControl('0', Validators.required),
     modelo: new FormControl('0', Validators.required),
@@ -46,12 +48,38 @@ export class ArticuloComponent implements OnInit {
     this.prodcSrv.getMedidas(data).subscribe(res => this.medidas = res);
   }
 
+  uploadImage(event) {
+    this.fileUpload = event.target;
+  }
+
   onSave() {
     const data = this.formulario.value;
-    this.prodcSrv.save(data).subscribe((res) => {
-      alert(res);
-      this.route.navigate(['/productos']);
-    });
+    this.prodcSrv.save(data)
+      .subscribe((res) => {
+
+        alert("Respuesta -> " + res);
+
+        // this.fileUpload.files[0]['name'] = { ...this.fileUpload.files[0].name, ...res };
+
+        // let formData = new FormData();
+
+        // if (this.fileUpload.files[0].length != undefined) {
+
+        //   formData.append('file', this.fileUpload.files[0]);
+
+        //   this.prodcSrv.saveImage(formData).subscribe((res) => {
+        //     console.log('respuesta Api -> ', res);
+        //   }, (error) => console.log(error));
+
+        // }
+
+
+        this.route.navigate(['/productos']
+        );
+      });
+
   }
+
+
 
 }
