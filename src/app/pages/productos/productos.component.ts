@@ -101,7 +101,6 @@ export class ProductosComponent implements OnInit {
     const { cod_Articulo } = this.formulario.value;
     if (cod_Articulo) {
       return `/assets/images/${cod_Articulo}.jpg`;
-      //return this.prodcSrv.getImg(cod_Articulo);
     }
 
   }

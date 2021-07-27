@@ -56,9 +56,4 @@ export class ProductosService {
     return this.http.put(`${environment.apiRest}/update/${id}`, data);
   }
 
-  getImg(cod: string) {
-    //return `${environment.apiUrl}/${cod}.jpg`;
-    return `/assets/images/${cod}.jpg`;
-  }
-
 }
