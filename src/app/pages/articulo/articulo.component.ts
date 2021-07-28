@@ -54,30 +54,23 @@ export class ArticuloComponent implements OnInit {
 
   onSave() {
     const data = this.formulario.value;
+
     this.prodcSrv.save(data)
       .subscribe((res) => {
 
-        alert("Respuesta -> " + res);
+        if (this.fileUpload != null) {
+          let formData = new FormData();
 
-        // this.fileUpload.files[0]['name'] = { ...this.fileUpload.files[0].name, ...res };
+          formData.append('file', this.fileUpload.files[0]);
 
-        // let formData = new FormData();
+          this.prodcSrv.saveImage(formData, res)
+            .subscribe(() => { }, (error) => console.log(error));
+        }
 
-        // if (this.fileUpload.files[0].length != undefined) {
+        alert('Nuevo Articulo Guardado');
+        this.route.navigate(['/productos']);
 
-        //   formData.append('file', this.fileUpload.files[0]);
-
-        //   this.prodcSrv.saveImage(formData).subscribe((res) => {
-        //     console.log('respuesta Api -> ', res);
-        //   }, (error) => console.log(error));
-
-        // }
-
-
-        this.route.navigate(['/productos']
-        );
-      });
-
+      }, (error) => console.log(error));
   }
 
 

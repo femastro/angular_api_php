@@ -47,8 +47,8 @@ export class ProductosService {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
 
-  saveImage(file?: any) {
-    return this.http.post(`${environment.apiImage}`, file);
+  saveImage(file?: any, codigo?: any) {
+    return this.http.post(`${environment.apiImage}/${codigo}`, file);
   }
 
   update(data: Articulo) {
