@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { Observable } from 'rxjs';
@@ -48,7 +48,8 @@ export class ProductosService {
   }
 
   saveImage(file?: any, codigo?: any) {
-    return this.http.post(`${environment.apiImage}/${codigo}`, file);
+    let headers = new HttpHeaders();
+    return this.http.post(`${environment.apiImage}/${codigo}`, file, { headers });
   }
 
   update(data: Articulo) {

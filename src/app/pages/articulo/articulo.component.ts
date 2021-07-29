@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
