@@ -68,7 +68,7 @@ export class ArticuloComponent implements OnInit {
         }
 
         alert('Nuevo Articulo Guardado');
-        //this.route.navigate(['/productos']);
+        this.route.navigate(['/productos']);
 
       }, (error) => console.log(error));
   }

@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://aj.mastrosoft.com.ar/imgProducto',
-  //apiUrl: 'https://www.mastrosoft.com.ar/api/public/imgProduto',
+  //apiUrl: 'https://aj.mastrosoft.com.ar/imgProducto',
+  apiUrl: 'https://www.mastrosoft.com.ar/api/public/imgProducto',
   apiRest: 'https://www.mastrosoft.com.ar/api/public/neumaticos',
   apiAll: 'https://www.mastrosoft.com.ar/api/public/all',
-  apiImage: "http://www.mastrosoft.com.ar/api/public/imagen"
+  apiImage: "https://www.mastrosoft.com.ar/api/public/imagen"
 
 };
 
