@@ -64,11 +64,11 @@ export class ArticuloComponent implements OnInit {
           formData.append('file', this.fileUpload.files[0]);
 
           this.prodcSrv.saveImage(formData, res)
-            .subscribe(() => { }, (error) => console.log(error));
+            .subscribe((resp) => { console.log("respuesta -> ", resp) }, (error) => console.log(error));
         }
 
         alert('Nuevo Articulo Guardado');
-        this.route.navigate(['/productos']);
+        //this.route.navigate(['/productos']);
 
       }, (error) => console.log(error));
   }
