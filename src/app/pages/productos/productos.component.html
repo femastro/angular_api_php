@@ -66,9 +66,20 @@
                             <input type="number" class="form-control" id="inputCantidad" formControlName="cantidad">
 
                             <div id="imgMuestra">
-                                <img [src]="urlImage" (error)="onImageError($event)" alt="img">
+                                <img class="mt-2" [src]="urlImage" (error)="onImageError($event)" alt="img">
+                                <ng-container>
+                                    <!-- in app.component.html -->
+                                    <ngx-dropzone class="mt-3" (change)="onSelect($event)">
+                                        <ngx-dropzone-label>
+                                            Hacer - <b>Click</b> - ó Arrastrar Imágen Aquí..
+                                        </ngx-dropzone-label>
+                                        <ngx-dropzone-image-preview class="mt-2" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                        </ngx-dropzone-image-preview>
+                                    </ngx-dropzone><br>
+                                </ng-container>
+                                <!-- IMAGEN MUESTRA -->
                             </div>
-                            <input type="file" class="form-control" name="imgMuestra">
+
                             <br>
                         </div>
                     </div>

@@ -5,7 +5,7 @@ import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
-import { tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 
 
@@ -21,6 +21,8 @@ export class ProductosComponent implements OnInit {
 
   articulo: Articulo;
   imagen = "";
+
+  files: File[] = [];
 
   /// esto lo creo Ruslan.
   articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
@@ -38,7 +40,8 @@ export class ProductosComponent implements OnInit {
     modelo: new FormControl('', Validators.required),
     medida: new FormControl('', Validators.required),
     cod_Proveedor: new FormControl('', Validators.required),
-    cantidad: new FormControl('', Validators.required)
+    cantidad: new FormControl('', Validators.required),
+    image: new FormControl('')
   });
 
   ngOnInit(): void { }
@@ -60,6 +63,24 @@ export class ProductosComponent implements OnInit {
 
   onUpdate() {
     const datos = this.formulario.value;
+    const image_data = new FormData();
+    const file_data = this.files[0];
+
+    let newData: any;
+    let urlImage: any;
+
+    if (!this.files[0]) {
+      console.log("... Error no hay imagen");
+      return;
+    }
+
+    image_data.append('file', file_data);
+    image_data.append('upload_preset', 'gestion');
+    image_data.append('cloud_name', 'femastro');
+
+    this.prodcSrv.saveImage(image_data)
+      .pipe(map(res => { urlImage = res.secure_url }));
+
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
       this.prodcSrv.update(datos).subscribe(res => {
@@ -96,17 +117,27 @@ export class ProductosComponent implements OnInit {
     location.reload();
   }
 
-
   get urlImage() {
-    const { cod_Articulo } = this.formulario.value;
+    const { cod_Articulo, image } = this.formulario.value;
     if (cod_Articulo) {
-      return `./assets/images/${cod_Articulo}.jpg`;
+      return image;
     }
 
   }
 
   onImageError(event: any) {
     event.target.src = './assets/images/sin-foto.jpg';
+  }
+
+  /// Ngx Dropzone
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
   }
 
 }

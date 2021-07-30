@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ArticuloRoutingModule } from './articulo-routing.module';
 import { ArticuloComponent } from './articulo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     ArticuloRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDropzoneModule
   ]
 })
 export class ArticuloModule { }

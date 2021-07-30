@@ -23,7 +23,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -47,9 +47,8 @@ export class ProductosService {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
 
-  saveImage(file?: any, codigo?: any) {
-    let headers = new HttpHeaders();
-    return this.http.post(`${environment.apiImage}/${codigo}`, file, { headers });
+  saveImage(file: FormData): Observable<any> {
+    return this.http.post(`${environment.apiCloudinary}`, file);
   }
 
   update(data: Articulo) {

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-articulo',
@@ -18,14 +20,15 @@ export class ArticuloComponent implements OnInit {
   modelos: Formulario[];
   medidas: Formulario[];
 
-  fileUpload: { files: any[]; };
+  files: File[] = [];
 
   formulario = new FormGroup({
     marca: new FormControl('0', Validators.required),
     modelo: new FormControl('0', Validators.required),
     medida: new FormControl('0', Validators.required),
     cod_Proveedor: new FormControl(''),
-    cantidad: new FormControl('0', Validators.min(0))
+    cantidad: new FormControl('0', Validators.min(0)),
+    image: new FormControl('')
   });
 
   constructor(
@@ -33,9 +36,7 @@ export class ArticuloComponent implements OnInit {
     private route: Router
   ) { }
 
-  ngOnInit(): void {
-    //this.modelos.pipe(res => console.log(res));
-  }
+  ngOnInit(): void { }
 
   seleccionaMarca() {
     const data = this.formulario.value;
@@ -47,31 +48,57 @@ export class ArticuloComponent implements OnInit {
     this.prodcSrv.getMedidas(data).subscribe(res => this.medidas = res);
   }
 
-  uploadImage(event) {
-    this.fileUpload = event.target;
-  }
-
   onSave() {
     const data = this.formulario.value;
+    const image_data = new FormData();
+    const file_data = this.files[0];
+
+    let newData: any;
+    let urlImage: any;
+
+    if (!this.files[0]) {
+      console.log("... Error no hay imagen");
+      return;
+    }
+
+    image_data.append('file', file_data);
+    image_data.append('upload_preset', 'gestion');
+    image_data.append('cloud_name', 'femastro');
+
+    this.prodcSrv.saveImage(image_data)
+      .pipe(map(res => { urlImage = res.secure_url }));
+
+    newData = [
+      {
+        marca: data.marca,
+        modelo: data.modelo,
+        medida: data.medida,
+        cod_Proveedor: data.cod_Proveedor,
+        cantidad: data.cantidad,
+        image: ''
+      }
+    ];
+
+
 
     this.prodcSrv.save(data)
       .subscribe((res) => {
-
-        if (this.fileUpload != null) {
-          let formData = new FormData();
-
-          formData.append('file', this.fileUpload.files[0]);
-
-          this.prodcSrv.saveImage(formData, res)
-            .subscribe((resp) => { console.log("respuesta -> ", resp) }, (error) => console.log(error));
-        }
-
-        alert('Nuevo Articulo Guardado');
-        this.route.navigate(['/productos']);
-
+        console.log(res);
+        //this.route.navigate(['/productos']);
       }, (error) => console.log(error));
+
   }
 
+  /// Ngx Dropzone
+  onSelect(event) {
+    console.log(event);
+    this.files.push(...event.addedFiles);
+  }
+
+  onRemove(event) {
+    console.log(event);
+    this.files.splice(this.files.indexOf(event), 1);
+  }
 
 
 }

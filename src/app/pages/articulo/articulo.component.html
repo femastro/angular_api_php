@@ -7,7 +7,7 @@
             <div class="div-input">
 
                 <ng-container *ngIf="(marcas$ | async) as marcas">
-                    <label class="col-form-label mt-2" for="inputMarca"><b>Marca</b></label>
+                    <label class="col-form-label mt-1" for="inputMarca"><b>Marca</b></label>
                     <select type="text" class="form-control" id="inputMarca" formControlName="marca" (change)="seleccionaMarca()">
                         <option value="0">Seleccionar ...</option>
                         <option *ngFor="let op of marcas" [value]="op.marca">{{op.marca}}</option>
@@ -15,7 +15,7 @@
                 </ng-container>
 
                 <ng-container>
-                    <label class="col-form-label mt-2" for="inputModelo"><b>Modelo</b></label>
+                    <label class="col-form-label mt-1" for="inputModelo"><b>Modelo</b></label>
                     <select type="text" class="form-control" id="inputModelo" formControlName="modelo" (change)="seleccionaModelo()">
                         <option value="0">Seleccionar ...</option>
                         <option *ngFor="let op of this.modelos" [value]="op.modelo">{{op.modelo}}</option>
@@ -23,24 +23,31 @@
                 </ng-container>
 
                 <ng-container>
-                    <label class="col-form-label mt-2" for="inputMedida"><b>Medida</b></label>
+                    <label class="col-form-label mt-1" for="inputMedida"><b>Medida</b></label>
                     <select type="text" class="form-control" id="inputMedida" formControlName="medida">
                         <option value="0">Seleccionar ...</option>
                         <option *ngFor="let op of this.medidas" [value]="op.medida">{{op.medida}}</option>
                     </select>
                 </ng-container>
 
-                <label class="col-form-label mt-2" for="inputProveedor"><b>Cod. Proveedor</b>&nbsp;<span class="comentario">(
-            Opcional
-            )</span></label>
+                <label class="col-form-label mt-1" for="inputProveedor">
+                    <b>Cod. Proveedor</b>&nbsp;<span class="comentario">(Opcional)</span>
+                </label>
                 <input type="text" class="form-control" id="inputProveedor" formControlName="cod_Proveedor">
 
-                <label class="col-form-label mt-2" for="inputCantidad"><b>Cantidad</b></label>
+                <label class="col-form-label mt-1" for="inputCantidad"><b>Cantidad</b></label>
                 <input type="number" class="form-control" id="inputCantidad" min="0" formControlName="cantidad">
 
-                <label class="col-form-label mt-2" for="inputImagen"><b>Imágen</b></label>
-                <input type="file" class="form-control" name="imgMuestra" id="inputImagen" (change)="uploadImage($event)">
-                <br>
+                <!-- in app.component.html -->
+
+                <ngx-dropzone class="mt-2" (change)="onSelect($event)">
+                    <ngx-dropzone-label>
+                        Hacer - <b>Click</b> - ó Arrastrar Imágen Aquí..
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-image-preview class="mt-2" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                    </ngx-dropzone-image-preview>
+                </ngx-dropzone><br>
+
             </div>
             <div class="row">
                 <button type="button" (click)="onSave()" class="btn btn-info btn-block">Guardar</button>&nbsp;

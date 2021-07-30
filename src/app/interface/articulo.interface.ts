@@ -5,7 +5,8 @@ export interface Articulo {
   modelo: string;
   medida: string;
   cod_Proveedor: string;
-  cantidad: number
+  cantidad: number,
+  image: string
 }
 
 export interface Formulario {
@@ -13,5 +14,6 @@ export interface Formulario {
   modelo: string;
   medida: string;
   cod_Proveedor: string;
-  cantidad: number
+  cantidad: number;
+  image: string
 }
