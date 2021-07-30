@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
+import { Cloudinary } from '@cloudinary/angular-5.x';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
@@ -46,13 +47,13 @@ export class ProductosComponent implements OnInit {
 
   /// con esto solucione el problema de que no mostraba en el Modal con los datos 
   onEditArticulo(data: Articulo) {
-    this.modalService.open(this.myModalInfo);
     const { id } = data;
     this.prodcSrv.getById(id)
       .pipe(
-        tap(resp => {
-          this.formulario.setValue(resp);
-          this.articulo = resp;
+        tap(articulo => {
+          this.modalService.open(this.myModalInfo);
+          this.formulario.setValue(articulo);
+          this.articulo = articulo;
         })
       )
       .subscribe();
@@ -67,6 +68,8 @@ export class ProductosComponent implements OnInit {
     if (!this.files[0]) {
       this.updateData(data);
     } else {
+
+
       image_data.append('file', file_data);
       image_data.append('upload_preset', 'gestion');
       image_data.append('cloud_name', 'femastro');
@@ -91,16 +94,13 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  /// Actualiza los Datos del Articulo, Pero cuando el campo image esta con los datos de la URL , no los guarda.
+  /// Actualiza los Datos del Articulo.
   updateData(data: Articulo) {
-
-    console.log("Data Send -> ", data);
-
     this.prodcSrv.update(data)
       .pipe(
         tap(res => {
           alert(`Respuesta -> ${res}`);
-          ///this.refresh();
+          this.refresh();
         })).subscribe()
   }
 
@@ -132,10 +132,9 @@ export class ProductosComponent implements OnInit {
 
   // Captura la imagen 
   get urlImage() {
-    const { cod_Articulo, image } = this.formulario.value;
-    if (cod_Articulo) {
-      return image;
-    }
+    const { image } = this.formulario.value;
+    return image;
+
   }
 
   /// Si la imagen no existe , muestra Sin Foto

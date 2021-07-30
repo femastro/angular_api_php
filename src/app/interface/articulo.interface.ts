@@ -10,6 +10,8 @@ export interface Articulo {
 }
 
 export interface Formulario {
+  id: number;
+  cod_Articulo: string;
   marca: string;
   modelo: string;
   medida: string;

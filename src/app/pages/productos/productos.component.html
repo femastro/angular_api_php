@@ -18,7 +18,7 @@
         <ng-container *ngIf="(articulos$ | async) as articulos">
             <tbody *ngFor="let art of articulos">
                 <tr>
-                    <td>{{ art.idneumaticos }}</td>
+                    <td>{{ art.id }}</td>
                     <td>{{ art.cod_Articulo }}</td>
                     <td>{{ art.marca }}</td>
                     <td>{{ art.modelo }}</td>
