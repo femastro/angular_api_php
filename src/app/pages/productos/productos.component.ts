@@ -96,19 +96,11 @@ export class ProductosComponent implements OnInit {
   }
 
   updateData(data: Articulo) {
-
-    console.log(data);
-
-    if (this.formulario.valid) {
-      // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
-      this.prodcSrv.update(data)
-        .subscribe(res => {
-          alert(`Respuesta -> ${res}`);
-          //this.refresh();
-        })
-    }
-
-    /// no refresh la pagina
+    this.prodcSrv.update(data)
+      .subscribe(res => {
+        alert(`Respuesta -> ${res}`);
+        this.refresh();
+      })
   }
 
   onNew(): void {
