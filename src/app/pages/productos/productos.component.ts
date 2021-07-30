@@ -91,7 +91,7 @@ export class ProductosComponent implements OnInit {
     }
   }
 
-  /// Actualiza los Datos del Articulo
+  /// Actualiza los Datos del Articulo, Pero cuando el campo image esta con los datos de la URL , no los guarda.
   updateData(data: Articulo) {
 
     console.log("Data Send -> ", data);
