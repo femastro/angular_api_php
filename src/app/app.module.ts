@@ -10,6 +10,7 @@ import { ModalComponent } from './shared/modal/modal.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

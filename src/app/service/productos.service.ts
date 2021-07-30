@@ -43,7 +43,7 @@ export class ProductosService {
     return this.http.delete<any>(`${environment.apiRest}/delete/${id}`);
   }
 
-  save(data: Articulo) {
+  save(data) {
     return this.http.post(`${environment.apiRest}/new`, data);
   }
 

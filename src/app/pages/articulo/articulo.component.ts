@@ -21,6 +21,7 @@ export class ArticuloComponent implements OnInit {
   medidas: Formulario[];
 
   files: File[] = [];
+  urlImage: string;
 
   formulario = new FormGroup({
     marca: new FormControl('0', Validators.required),
@@ -50,11 +51,9 @@ export class ArticuloComponent implements OnInit {
 
   onSave() {
     const data = this.formulario.value;
+
     const image_data = new FormData();
     const file_data = this.files[0];
-
-    let newData: any;
-    let urlImage: any;
 
     if (!this.files[0]) {
       console.log("... Error no hay imagen");
@@ -66,26 +65,25 @@ export class ArticuloComponent implements OnInit {
     image_data.append('cloud_name', 'femastro');
 
     this.prodcSrv.saveImage(image_data)
-      .pipe(map(res => { urlImage = res.secure_url }));
+      .pipe(map(res => {
 
-    newData = [
-      {
-        marca: data.marca,
-        modelo: data.modelo,
-        medida: data.medida,
-        cod_Proveedor: data.cod_Proveedor,
-        cantidad: data.cantidad,
-        image: ''
-      }
-    ];
+        const newData = (
+          {
+            marca: data.marca,
+            modelo: data.modelo,
+            medida: data.medida,
+            cod_Proveedor: data.cod_Proveedor,
+            cantidad: data.cantidad,
+            image: res.secure_url
+          }
+        );
 
-
-
-    this.prodcSrv.save(data)
-      .subscribe((res) => {
-        console.log(res);
-        //this.route.navigate(['/productos']);
-      }, (error) => console.log(error));
+        this.prodcSrv.save(newData)
+          .subscribe((res) => {
+            alert(res);
+            this.route.navigate(['/productos']);
+          }, (error) => console.log(error));
+      })).subscribe();
 
   }
 

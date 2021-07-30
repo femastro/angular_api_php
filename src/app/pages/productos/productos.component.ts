@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Articulo } from '@app/interface/articulo.interface';
+import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -60,34 +60,54 @@ export class ProductosComponent implements OnInit {
       .subscribe();
   };
 
-
   onUpdate() {
-    const datos = this.formulario.value;
+    const data = this.formulario.value;
     const image_data = new FormData();
     const file_data = this.files[0];
 
-    let newData: any;
-    let urlImage: any;
-
     if (!this.files[0]) {
-      console.log("... Error no hay imagen");
-      return;
+      this.updateData(data);
+    } else {
+
+      image_data.append('file', file_data);
+      image_data.append('upload_preset', 'gestion');
+      image_data.append('cloud_name', 'femastro');
+
+      this.prodcSrv.saveImage(image_data)
+        .pipe(map(res => {
+
+          const newData = (
+            {
+              id: data.id,
+              cod_Articulo: data.cod_Articulo,
+              marca: data.marca,
+              modelo: data.modelo,
+              medida: data.medida,
+              cod_Proveedor: data.cod_Proveedor,
+              cantidad: data.cantidad,
+              image: res.secure_url
+            }
+          );
+
+          this.updateData(newData)
+
+        })).subscribe();
     }
+  }
 
-    image_data.append('file', file_data);
-    image_data.append('upload_preset', 'gestion');
-    image_data.append('cloud_name', 'femastro');
+  updateData(data: Articulo) {
 
-    this.prodcSrv.saveImage(image_data)
-      .pipe(map(res => { urlImage = res.secure_url }));
+    console.log(data);
 
     if (this.formulario.valid) {
       // Hacer un mapping de los cambios. (LEER SOBRE "AUTOMAPPERS")
-      this.prodcSrv.update(datos).subscribe(res => {
-        alert(`Respuesta -> ${res}`);
-        this.refresh();
-      })
+      this.prodcSrv.update(data)
+        .subscribe(res => {
+          alert(`Respuesta -> ${res}`);
+          //this.refresh();
+        })
     }
+
     /// no refresh la pagina
   }
 
@@ -122,7 +142,6 @@ export class ProductosComponent implements OnInit {
     if (cod_Articulo) {
       return image;
     }
-
   }
 
   onImageError(event: any) {

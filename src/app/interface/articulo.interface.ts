@@ -17,3 +17,4 @@ export interface Formulario {
   cantidad: number;
   image: string
 }
+
