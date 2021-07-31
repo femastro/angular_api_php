@@ -16,7 +16,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ProductosRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDropzoneModule
+    NgxDropzoneModule,
   ]
 })
 export class ProductosModule { }

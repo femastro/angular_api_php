@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '@environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,10 +52,6 @@ export class ProductosService {
   saveImage(file: FormData): Observable<any> {
     return this.http.post(`${environment.apiCloudinary}`, file);
   }
-
-  // eliminarImagen(data: string) {
-
-  // }
 
   update(data: Articulo) {
     const { id } = data;

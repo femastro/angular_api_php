@@ -18,6 +18,7 @@ export class ProductosComponent implements OnInit {
 
   articulo: Articulo;
   files: File[] = [];
+  image;
 
   /// esto lo creo Ruslan.
   articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
@@ -50,6 +51,7 @@ export class ProductosComponent implements OnInit {
           this.modalService.open(this.myModalInfo);
           this.formulario.setValue(articulo);
           this.articulo = articulo;
+          this.image = articulo.image;
         })
       )
       .subscribe();
@@ -60,12 +62,6 @@ export class ProductosComponent implements OnInit {
     const data = this.formulario.value;
     const image_data = new FormData();
     const file_data = this.files[0];
-
-    // Eliminar Imagen de Cloudinary ....
-    // this.prodcSrv.eliminarImagen(data.image)
-    //   .pipe(
-    //     tap(res => console.log(res))
-    //   )
 
     if (!this.files[0]) {
       this.updateData(data);

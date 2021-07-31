@@ -11,10 +11,18 @@
 }
 
 #imgMuestra {
+    position: relative;
     text-align: center;
     padding: 10px 5px;
     img {
         width: 50%;
+    }
+    img:hover {
+        border-radius: 10px;
+        position: absolute;
+        top: -330px;
+        left: -42px;
+        width: 120%;
     }
 }
 
