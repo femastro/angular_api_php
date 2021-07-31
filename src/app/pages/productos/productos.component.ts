@@ -7,9 +7,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
 
-
-
-
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
