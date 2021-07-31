@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
-import { Cloudinary } from '@cloudinary/angular-5.x';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
@@ -65,10 +64,15 @@ export class ProductosComponent implements OnInit {
     const image_data = new FormData();
     const file_data = this.files[0];
 
+    // Eliminar Imagen de Cloudinary ....
+    // this.prodcSrv.eliminarImagen(data.image)
+    //   .pipe(
+    //     tap(res => console.log(res))
+    //   )
+
     if (!this.files[0]) {
       this.updateData(data);
     } else {
-
 
       image_data.append('file', file_data);
       image_data.append('upload_preset', 'gestion');

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Articulo, Formulario } from '@app/interface/articulo.interface';
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class ProductosService {
+
 
   constructor(private http: HttpClient) { }
 
@@ -50,6 +51,10 @@ export class ProductosService {
   saveImage(file: FormData): Observable<any> {
     return this.http.post(`${environment.apiCloudinary}`, file);
   }
+
+  // eliminarImagen(data: string) {
+
+  // }
 
   update(data: Articulo) {
     const { id } = data;

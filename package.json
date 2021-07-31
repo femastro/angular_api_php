@@ -27,7 +27,7 @@
     "fs": "0.0.1-security",
     "fs-exists-sync": "^0.1.0",
     "ngx-dropzone": "^3.0.0",
-    "require": "^2.4.20",
+    "require": "^0.4.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
