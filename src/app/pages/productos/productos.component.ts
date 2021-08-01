@@ -127,7 +127,7 @@ export class ProductosComponent implements OnInit {
     location.reload();
   }
 
-  // Captura la imagen 
+  // Obtiene los datos de la imagen almacenados en la BD 
   get urlImage() {
     const { image } = this.formulario.value;
     return image;
