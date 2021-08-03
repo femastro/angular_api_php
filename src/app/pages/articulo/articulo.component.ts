@@ -14,9 +14,7 @@ import { map } from 'rxjs/operators';
 })
 export class ArticuloComponent implements OnInit {
 
-  articulos$: Observable<Articulo[]> = this.prodcSrv.getNeumaticos();
   marcas$: Observable<any> = this.prodcSrv.getMarcas();
-
   modelos: Formulario[];
   medidas: Formulario[];
 
@@ -83,7 +81,7 @@ export class ArticuloComponent implements OnInit {
             alert(res);
             this.route.navigate(['/productos']);
           }, (error) => console.log(error));
-      })).subscribe();
+      }))
 
   }
 

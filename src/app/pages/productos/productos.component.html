@@ -26,7 +26,7 @@
                     <td>{{ art.cod_Proveedor }}</td>
                     <td class="centrar">{{ art.cantidad }}</td>
                     <td class="centrar">
-                        <button class="btn btn-warning btn-sm" (click)="onEditArticulo(art)">Edit</button> /
+                        <button class="btn btn-secondary btn-sm" (click)="onEditArticulo(art)">Edit</button> /
                         <button class="btn btn-danger btn-sm" (click)="onDeleteArticulo(art)">Delete</button>
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
             <div class="modal-body">
                 <form [formGroup]="formulario" class="form-group" (ngSubmit)="onUpdate()">
                     <div class="card mb-3" style="max-width: 100%;">
-                        <div class="card-header"><b>COD. ARTICULO</b> ( {{ articulo?.cod_Articulo }} )</div>
+                        <div class="card-header"><b>COD. ARTICULO</b> ( {{ codigo }} )</div>
                         <div class="div-input form-group">
                             <b>Marca</b>
                             <input type="text" class="form-control" id="inputMarca" formControlName="marca">

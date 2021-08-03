@@ -16,9 +16,8 @@ export class ProductosComponent implements OnInit {
 
   @ViewChild("myModalInfo", { static: false }) myModalInfo: TemplateRef<any>;
 
-  articulo: Articulo;
+  codigo: string;
   files: File[] = [];
-  image;
 
   /// esto lo creo Ruslan.
   articulos$: Observable<Articulo[]> = this.prodcSrv.getAll();
@@ -42,7 +41,7 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  /// con esto solucione el problema de que no mostraba en el Modal con los datos 
+  /// Carga los datos del Modal para Editar
   onEditArticulo(data: Articulo) {
     const { id } = data;
     this.prodcSrv.getById(id)
@@ -50,11 +49,8 @@ export class ProductosComponent implements OnInit {
         tap(articulo => {
           this.modalService.open(this.myModalInfo);
           this.formulario.setValue(articulo);
-          this.articulo = articulo;
-          this.image = articulo.image;
-        })
-      )
-      .subscribe();
+          this.codigo = articulo.cod_Articulo;
+        })).subscribe();
   };
 
   // Inicia el Update , primero guarda la Imagen Nueva , si no hay continua al update de Datos.
@@ -87,7 +83,7 @@ export class ProductosComponent implements OnInit {
               }
             );
             this.updateData(newData)
-          })).subscribe();
+          }))
     }
   }
 
@@ -98,7 +94,7 @@ export class ProductosComponent implements OnInit {
         tap(res => {
           alert(`Respuesta -> ${res}`);
           this.refresh();
-        })).subscribe()
+        })).subscribe();
   }
 
   // llama al Formmulario de nuevo articulo
