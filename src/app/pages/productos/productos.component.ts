@@ -6,6 +6,7 @@ import { ProductosService } from '@app/service/productos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -92,8 +93,15 @@ export class ProductosComponent implements OnInit {
     this.prodcSrv.update(data)
       .pipe(
         tap(res => {
-          alert(`Respuesta -> ${res}`);
-          this.refresh();
+          //alert(`Respuesta -> ${res}`);
+          Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1800
+          })
+          //location.reload();
         })).subscribe();
   }
 
@@ -104,24 +112,36 @@ export class ProductosComponent implements OnInit {
 
   onDeleteArticulo(data: Articulo): void {
     const { id } = data;
-    let mensaje = "Esta seguro ?";
 
-    if (confirm(mensaje)) {
-      this.prodcSrv.delete(id).subscribe(articuloEliminado => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+        this.prodcSrv.delete(id).subscribe(articuloEliminado => {
 
-        if (articuloEliminado.status == 200) {
-          alert(`Respuesta : => ${articuloEliminado.message}`);
-        } else {
-          alert(`Respuesta : => ${articuloEliminado.message}`);
-        }
-        this.refresh();
-      });
-    }
+          if (articuloEliminado.status == 200) {
+            alert(`Respuesta : => ${articuloEliminado.message}`);
+          } else {
+            alert(`Respuesta : => ${articuloEliminado.message}`);
+          }
+        });
+        location.reload();
+      }
+    })
   }
 
-  refresh() {
-    location.reload();
-  }
+
 
   // Obtiene los datos de la imagen almacenados en la BD 
   get urlImage() {

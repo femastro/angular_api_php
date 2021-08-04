@@ -28,6 +28,7 @@
     "ngx-dropzone": "^3.0.0",
     "require": "^0.4.4",
     "rxjs": "~6.6.0",
+    "sweetalert2": "^11.1.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
   },
