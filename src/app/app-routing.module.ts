@@ -1,25 +1,32 @@
 import { ContainerComponent } from './shared/container/container.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { config } from 'rxjs';
+import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { AuthGuard } from '@shared/guard/auth.guard'
 
 const routes: Routes = [
   { 
     path: '', 
-    component: ContainerComponent, 
+    component: ContainerComponent,
+ 
     children:[
       {
         path: '',
-        redirectTo : 'home',
+        redirectTo : 'login',
         pathMatch : 'full'
       },
       { 
-        path: 'home', 
+        path: 'login', 
+        loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
+      },
+      { 
+        path: 'home',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) 
       }, 
       { 
         path: 'productos', 
-        loadChildren: () => import('./pages/productos/productos.module').then(m => m.ProductosModule) 
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/productos/productos.module').then(m => m.ProductosModule),
       },
       { 
         path: 'articulo', 

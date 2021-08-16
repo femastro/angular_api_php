@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  
+  constructor(
+    private route: Router
+    ) { }
+
+  public user;
 
   ngOnInit(): void {
+  }
+
+  logOut(){
+    this.route.navigate(['/']);
   }
 
 }
