@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UserService } from '@auth/service/user.service';
@@ -9,13 +9,14 @@ import { UserService } from '@auth/service/user.service';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private userSvc: UserService ){}
+  constructor(
+    private userSvc: UserService 
+  ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    const { role } = this.userSvc.user$;
-
-    if ( role == "admin" ){
+    console.log("Guard => ",this.userSvc.user$);
+    const { privilegios } = this.userSvc.user$;
+    if ( privilegios == '3' ){
       return true;
     }
     return false;

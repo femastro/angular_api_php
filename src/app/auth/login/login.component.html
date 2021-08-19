@@ -1,2 +1,20 @@
-<p>login works!</p>
-<button (click)="onlogin()" mat-button>login</button>
+<div class="card border-primary mt-5 mb-3" style="max-width: 30rem;margin: auto">
+    <form [formGroup]="formLogin" (ngSubmit)="onlogin()" class="form-group">
+        <div class="card-header text-center">
+            <h1>Login</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="usuario" class="form-label mt-4">Usuario</label>
+                <input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Usuario" formControlName="username">
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label mt-4">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+            </div>
+        </div>
+        <div class="card-header text-center mt-3">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Entrar</button>
+        </div>
+    </form>
+</div>

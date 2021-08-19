@@ -1,11 +1,11 @@
 export interface UserI{
-    username: String;
+    username: string;
     password: string;
 }
 
 export interface UserResponse{
-    username: String;
-    role: string;
+    usuario: string;
+    privilegios: string;
 }
 
 

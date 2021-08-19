@@ -1,18 +1,28 @@
-import { UserResponse } from './../../interface/user.interface';
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { UserI } from './../../interface/user.interface';
 import { Injectable } from '@angular/core';
+import { environment } from '@environments/environment';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   
-  public user$: UserResponse = {username: '', role:''};
+  user$ = {usuario:'', privilegios:''};
   
-  constructor(private route: Router) { }
+  constructor(
+    private http: HttpClient
+  ) {}
   
-  login(){
-    this.user$ = {username: 'fernando', role:'admin'};
-    this.route.navigate(['home']);
+  login(data: UserI) {
+    return this.http.post<any>(`${environment.apiUser}`, data)
+    .pipe( 
+      tap(res => {
+        this.user$ = res
+      })
+    );
+    
+    
   }
 }

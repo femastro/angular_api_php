@@ -1,7 +1,9 @@
+import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '@auth/service/user.service';
-import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -10,13 +12,23 @@ import { tap } from 'rxjs/operators';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private userSvc: UserService) { }
-
+  constructor(
+    private userSvc: UserService,
+    private route: Router,
+  ) { }
+  
+  formLogin = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+  })
+  
   ngOnInit(): void {
   }
-
+  
   onlogin(){
-    this.userSvc.login();
+    const form = this.formLogin.value;
+    this.userSvc.login(form).subscribe((res) => {console.log("Login OK! => ", this.userSvc.user$ = res)});
+    this.route.navigate(['/home'])
   }
 
 }
