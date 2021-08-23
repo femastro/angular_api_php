@@ -6,7 +6,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 July 5 , Update Angular/cli version 12.1.1
 
 ## After Clone:
-Use  npm i install [ node_modules ].
+Use :  npm i 
+[ node_modules ].
 
 ## Development server
 
