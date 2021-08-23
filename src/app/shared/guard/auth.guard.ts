@@ -3,6 +3,8 @@ import { CanActivate, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UserService } from '@auth/service/user.service';
+import { UserResponse } from '@app/interface/user.interface';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +12,19 @@ import { UserService } from '@auth/service/user.service';
 export class AuthGuard implements CanActivate {
 
   constructor(
-    private userSvc: UserService 
+    private userSvc: UserService
   ){}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log("Guard => ",this.userSvc.user$);
-    const { privilegios } = this.userSvc.user$;
-    if ( privilegios == '3' ){
-      return true;
-    }
-    return false;
+
+    return this.userSvc.user$.pipe(
+      take(1),
+      map((user: UserResponse) => (
+        user ? true : false
+      ))
+    );
+
+
   }
   
 }

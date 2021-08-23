@@ -1,28 +1,46 @@
 import { HttpClient } from '@angular/common/http';
-import { UserI } from './../../interface/user.interface';
+import { UserI, UserResponse } from './../../interface/user.interface';
 import { Injectable } from '@angular/core';
 import { environment } from '@environments/environment';
-import { tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  
-  user$ = {usuario:'', privilegios:''};
-  
+
   constructor(
     private http: HttpClient
-  ) {}
-  
-  login(data: UserI) {
+    ) {}
+
+  private user = new BehaviorSubject<UserResponse>(null);
+
+  get user$(): Observable<UserResponse> {
+    return this.user.asObservable();
+  }
+
+  get userValue(): UserResponse {
+    return this.user.getValue();
+  }
+
+  login(data: UserI): Observable<UserResponse | void> {
     return this.http.post<any>(`${environment.apiUser}`, data)
-    .pipe( 
-      tap(res => {
-        this.user$ = res
-      })
-    );
-    
-    
+    .pipe(
+        map((user: UserResponse) => {
+          this.user.next(user);
+          return user;
+        }),
+        catchError((err) => this.handlerError(err))
+      );    
+  }
+
+  private handlerError(err): Observable<never> {
+    let errorMessage = 'An errror occured retrienving data';
+    if (err) {
+      errorMessage = `Error: code ${err.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }

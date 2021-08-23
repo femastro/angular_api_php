@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '@auth/service/user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private userSvc: UserService,
@@ -27,8 +30,17 @@ export class LoginComponent implements OnInit {
   
   onlogin(){
     const form = this.formLogin.value;
-    this.userSvc.login(form).subscribe((res) => {console.log("Login OK! => ", this.userSvc.user$ = res)});
-    this.route.navigate(['/home'])
+    this.subscription.add(
+      this.userSvc.login(form)
+        .subscribe((res) =>
+          {
+            if(res){
+              console.log(res);
+              this.route.navigate(['/productos'])
+            }
+          }
+      )
+    );
   }
 
 }
