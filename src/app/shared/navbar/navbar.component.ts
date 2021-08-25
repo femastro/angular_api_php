@@ -1,10 +1,11 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { UserService } from '@auth/service/user.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { UserResponse } from '@app/interface/user.interface';
+
 
 
 @Component({
@@ -20,18 +21,22 @@ export class NavbarComponent implements OnInit {
   
   constructor(
     private route: Router,
-    private userSvc: UserService,
+    private userSvc: UserService
   ) {}
 
   ngOnInit(): void {
     this.userSvc.user$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((user: UserResponse) =>{
-        let privilegios = user?.privilegios
-        this.isLogged = privilegios=="3" ? true : false; 
-      })
+      .pipe(
+        takeUntil(this.destroy$)
+      )
+      .subscribe((user) =>
+        {
+          if(user){
+            this.isLogged = (user[0].privilegios=="3" ? true : false); 
+          }
+        }
+      )
   }
-
 
   logOut(){
     this.destroy$.next({});

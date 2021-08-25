@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
         .subscribe((res) =>
           {
             if(res){
-              console.log(res);
               this.route.navigate(['/productos'])
             }
           }
