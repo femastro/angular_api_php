@@ -12,7 +12,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient
-    ) {}
+  ) {}
 
   private user = new BehaviorSubject<UserResponse>(null);
 
@@ -25,7 +25,7 @@ export class UserService {
   }
 
   login(data: UserI): Observable<UserResponse | void> {
-    return this.http.post<any>(`${environment.apiUser}`, data)
+    return this.http.post<UserResponse>(`${environment.apiUser}`, data)
     .pipe(
         map((user: UserResponse) => {
           this.user.next(user);
