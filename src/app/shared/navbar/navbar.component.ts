@@ -37,11 +37,14 @@ export class NavbarComponent implements OnInit {
         }
       )
   }
-
-  logOut(){
+  ngOnDestroy(): void {
     this.destroy$.next({});
     this.destroy$.complete();
-    this.route.navigate(['/']);
+    this.route.navigate(['/login']);
+  }
+
+  onLogOut(): void{
+    this.userSvc.logout();
   }
 
 }
