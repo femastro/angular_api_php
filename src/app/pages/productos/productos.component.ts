@@ -90,18 +90,18 @@ export class ProductosComponent implements OnInit {
 
   /// Actualiza los Datos del Articulo.
   updateData(data: Articulo) {
+    let resp;
     this.prodcSrv.update(data)
       .pipe(
         tap(res => {
-          //alert(`Respuesta -> ${res}`);
+          resp = res
           Swal.fire({
             position: 'top',
             icon: 'success',
-            title: 'Your work has been saved',
+            title: resp,
             showConfirmButton: false,
             timer: 1800
           })
-          //location.reload();
         })).subscribe();
   }
 
@@ -123,20 +123,23 @@ export class ProductosComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
         this.prodcSrv.delete(id).subscribe(articuloEliminado => {
-
           if (articuloEliminado.status == 200) {
-            alert(`Respuesta : => ${articuloEliminado.message}`);
+            Swal.fire(
+              'Deleted!',
+              `${articuloEliminado.message}`,
+              'success'
+            )
+            setTimeout(() => location.reload(), 1500);
+            
           } else {
-            alert(`Respuesta : => ${articuloEliminado.message}`);
+            Swal.fire(
+              'Not Deleted!',
+              `${articuloEliminado.message}`,
+              'success'
+            )
           }
         });
-        location.reload();
       }
     })
   }

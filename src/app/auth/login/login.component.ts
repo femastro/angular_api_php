@@ -1,4 +1,4 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '@auth/service/user.service';
@@ -21,25 +21,29 @@ export class LoginComponent implements OnInit {
   ) { }
   
   formLogin = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
+    username: new FormControl('', Validators.required, length[3]),
+    password: new FormControl('', Validators.required, length[4]),
   })
   
   ngOnInit(): void {
   }
   
   onlogin(){
-    const form = this.formLogin.value;
-    this.subscription.add(
-      this.userSvc.login(form)
-        .subscribe((res) =>
-          {
-            if(res){
-              this.route.navigate(['/productos'])
+    //if (this.formLogin.asyncValidator){
+      const form = this.formLogin.value;
+      this.subscription.add(
+        this.userSvc.login(form)
+          .subscribe((res) =>
+            {
+              if(res){
+                this.route.navigate(['/productos'])
+              }
             }
-          }
-      )
-    );
+          )
+      );
+    // }else{
+    //   alert("Complete Todos Los Campos !");
+    // }
   }
 
   ngOnDestroy(): void {

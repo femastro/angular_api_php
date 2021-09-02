@@ -42,6 +42,7 @@ export class ProductosService {
   }
 
   delete(id: number) {
+    console.log("id =>", id);
     return this.http.delete<any>(`${environment.apiRest}/delete/${id}`);
   }
 
