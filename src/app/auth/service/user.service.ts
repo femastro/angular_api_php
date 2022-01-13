@@ -7,14 +7,10 @@ import { catchError, map } from 'rxjs/operators';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(
-    private http: HttpClient,
-    private route: Router
-  ){
+  constructor(private http: HttpClient, private route: Router) {
     this.checkToken();
   }
 
@@ -30,14 +26,14 @@ export class UserService {
 
   login(data: UserI): Observable<UserResponse | void> {
     return this.http.post<UserResponse>(`${environment.apiUser}`, data)
-    .pipe(
+      .pipe(
         map((user: UserResponse) => {
           this.saveLocalStorage(user);
           this.user.next(user);
           return user;
         }),
         catchError((err) => this.handlerError(err))
-      );    
+      );
   }
 
   logout() {
@@ -47,15 +43,13 @@ export class UserService {
   }
 
   private checkToken(): void {
-    
     const user = JSON.parse(localStorage.getItem('user')) || null;
 
     if (user) {
       this.user.next(user);
-    }else{
+    } else {
       this.logout();
     }
- 
   }
 
   private saveLocalStorage(user: UserResponse): void {
@@ -63,13 +57,9 @@ export class UserService {
     localStorage.setItem('user', JSON.stringify(rest));
   }
 
-
   private handlerError(err): Observable<never> {
-    let errorMessage = 'An errror occured retrienving data';
-    if (err) {
-      errorMessage = `Error: code ${err.message}`;
-    }
-    window.alert(errorMessage);
+    let errorMessage = ' Usuario y Password Son Incorrectos ...';
+    window.alert("Atención : "+errorMessage);
     return throwError(errorMessage);
   }
 }

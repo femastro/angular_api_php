@@ -1,47 +1,58 @@
-<div class="container-fluid">
-    <table class="table table-light mt-3">
-        <thead>
-            <tr>
-                <th colspan="8">ARTICULOS EN STOCK</th>
-            </tr>
-            <tr>
-                <th>#</th>
-                <th>CODIGO</th>
-                <th>MARCA</th>
-                <th>MODELO</th>
-                <th>MEDIDA</th>
-                <th>PROVEEDOR</th>
-                <th class="centrar">STOCK</th>
-                <th><button style="width: 100%;" class="btn btn-info btn-sm" (click)="onNew()">New</button></th>
-            </tr>
-        </thead>
-        <ng-container *ngIf="(articulos$ | async) as articulos">
-            <tbody *ngFor="let art of articulos">
+<div class="row">
+    <div class="col-md-12 my-2">
+        <div class="card-body">
+            <h4 class="text-center">
+                Listado de Articulos
+            </h4>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="card-header">
+            <h6 class="text-center">
+                STOCK
+            </h6>
+        </div>
+        <table class="table table-light mt-3">
+            <thead>
                 <tr>
-                    <td>{{ art.id }}</td>
-                    <td>{{ art.cod_Articulo }}</td>
-                    <td>{{ art.marca }}</td>
-                    <td>{{ art.modelo }}</td>
-                    <td>{{ art.medida }}</td>
-                    <td>{{ art.cod_Proveedor }}</td>
-                    <td class="centrar">{{ art.cantidad }}</td>
-                    <td class="centrar">
-                        <button class="btn btn-secondary btn-sm" (click)="onEditArticulo(art)">Edit</button> /
-                        <button class="btn btn-danger btn-sm" (click)="onDeleteArticulo(art)">Delete</button>
-                    </td>
+                    <th>#</th>
+                    <th>CODIGO</th>
+                    <th>MARCA</th>
+                    <th>MODELO</th>
+                    <th>MEDIDA</th>
+                    <th>PROVEEDOR</th>
+                    <th class="centrar">STOCK</th>
+                    <th><button style="width: 100%;" class="btn btn-info btn-sm" (click)="onNew()">New</button></th>
                 </tr>
-            </tbody>
-        </ng-container>
-    </table>
+            </thead>
+            <ng-container *ngIf="(articulos$ | async) as articulos">
+                <tbody *ngFor="let art of articulos">
+                    <tr>
+                        <td>{{ art.id }}</td>
+                        <td>{{ art.cod_Articulo }}</td>
+                        <td>{{ art.marca }}</td>
+                        <td>{{ art.modelo }}</td>
+                        <td>{{ art.medida }}</td>
+                        <td>{{ art.cod_Proveedor }}</td>
+                        <td class="centrar">{{ art.cantidad }}</td>
+                        <td class="centrar">
+                            <button class="btn btn-secondary btn-sm" (click)="onEditArticulo(art)">Edit</button> /
+                            <button class="btn btn-danger btn-sm" (click)="onDeleteArticulo(art)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </ng-container>
+        </table>
+    </div>
 </div>
 
 <ng-template #myModalInfo let-modal>
-
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">NEUMATICO</h5>
-            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close" (click)="modal.close()">
-              <span aria-hidden="true">&times;</span>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close"
+                (click)="modal.close()">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <ng-container>
@@ -75,7 +86,9 @@
                                         <ngx-dropzone-label>
                                             Hacer - <b>Click</b> - ó Arrastrar Imágen Aquí..
                                         </ngx-dropzone-label>
-                                        <ngx-dropzone-image-preview class="mt-2" ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                        <ngx-dropzone-image-preview class="mt-2" ngProjectAs="ngx-dropzone-preview"
+                                            *ngFor="let f of files" [file]="f" [removable]="true"
+                                            (removed)="onRemove(f)">
                                         </ngx-dropzone-image-preview>
                                     </ngx-dropzone><br>
                                 </ng-container>
@@ -89,11 +102,11 @@
                         <button type="submit" (click)="modal.close()" class="btn btn-info btn-block">Save</button>&nbsp;
                     </div>
                     <div class="row">
-                        <button type="button" autofocus (click)="modal.close()" class="btn btn-danger btn-block">Close</button>
+                        <button type="button" autofocus (click)="modal.close()"
+                            class="btn btn-danger btn-block">Close</button>
                     </div>
                 </form>
             </div>
         </ng-container>
     </div>
-
 </ng-template>

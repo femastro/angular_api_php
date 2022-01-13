@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Articulo } from '@app/interface/articulo.interface';
 import { ProductosService } from '@app/service/productos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from "rxjs/operators";
 import Swal from 'sweetalert2';
 
@@ -27,7 +27,7 @@ export class ProductosComponent implements OnInit {
     private prodcSrv: ProductosService,
     private route: Router,
     private modalService: NgbModal,
-  ) { }
+  ) {}
 
   formulario = new FormGroup({
     id: new FormControl('', Validators.required),
@@ -40,7 +40,7 @@ export class ProductosComponent implements OnInit {
     image: new FormControl('')
   });
 
-  ngOnInit(): void { }
+  ngOnInit() {}
 
   /// Carga los datos del Modal para Editar
   onEditArticulo(data: Articulo) {
@@ -85,11 +85,12 @@ export class ProductosComponent implements OnInit {
             );
             this.updateData(newData)
           }))
+          
     }
   }
 
   /// Actualiza los Datos del Articulo.
-  updateData(data: Articulo) {
+  updateData(data: Articulo){
     let resp;
     this.prodcSrv.update(data)
       .pipe(
@@ -102,7 +103,12 @@ export class ProductosComponent implements OnInit {
             showConfirmButton: false,
             timer: 1800
           })
-        })).subscribe();
+          this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.route.navigate(['/productos']);
+          }); 
+        
+        })
+      ).subscribe();      
   }
 
   // llama al Formmulario de nuevo articulo
